@@ -8,6 +8,7 @@ const {
   getSaleById,
   updateProductById,
   deleteProductById,
+  deleteSaleById,
 } = require('./store.manager.models');
 
 module.exports = {
@@ -20,4 +21,5 @@ module.exports = {
   getSaleById,
   updateProductById,
   deleteProductById,
+  deleteSaleById,
 };

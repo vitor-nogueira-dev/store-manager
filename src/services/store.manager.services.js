@@ -76,6 +76,12 @@ const insertSales = async (arrayBody) => {
   return { type: 'SUCCESS', statusCode: 201, message };
 };
 
+const deleteSaleById = async (id) => {
+  const deleteSale = await Model.deleteSaleById(id);
+  if (deleteSale === 0) { return { type: 'ERROR', statusCode: 404 }; }
+  return { type: 'SUCCESS', statusCode: 204, message: null };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -85,4 +91,5 @@ module.exports = {
   getSaleById,
   updateProductById,
   deleteProductById,
+  deleteSaleById,
 };

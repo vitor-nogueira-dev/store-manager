@@ -82,6 +82,15 @@ const insertSalesController = async (req, res) => {
   return res.status(statusCode).json(message);
 };
 
+const deleteSaleById = async (req, res) => {
+  const { id } = req.params;
+  const { type, statusCode, message } = await Service.deleteSaleById(+id);
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: 'Sale not found' });
+  }
+  return res.sendStatus(statusCode);
+};
+
 module.exports = {
   getAllProducts,
   getById,
@@ -91,4 +100,5 @@ module.exports = {
   getSaleById,
   updateProductById,
   deleteProductById,
+  deleteSaleById,
 };
