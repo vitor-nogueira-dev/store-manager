@@ -31,8 +31,20 @@ const insertProductController = async (req, res) => {
   return res.status(statusCode).json(message);
 };
 
+const insertSalesController = async (req, res) => {
+  const arrayBody = req.body;
+  console.log(arrayBody, 'aqui');
+
+  const { type, statusCode, message } = await Service.insertSales(arrayBody);
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: 'Product not found' });
+  }
+  return res.status(statusCode).json(message);
+};
+
 module.exports = {
   getAllProducts,
   getById,
   insertProductController,
+  insertSalesController,
 };

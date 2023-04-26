@@ -1,4 +1,5 @@
 const Model = require('../models');
+const helpers = require('../helpers');
 
 const getAllProducts = async () => {
   const products = await Model.getAllProducts();
@@ -29,8 +30,23 @@ const insertProduct = async (product) => {
   };
 };
 
+const insertSales = async (arrayBody) => {
+  const allProducts = await Model.getAllProducts();
+  const verifica = helpers.verifyProductId(allProducts, arrayBody);
+
+  if (!verifica) {
+    return { type: 'ERROR', statusCode: 404 };
+  }
+
+  const insertId = await Model.insertDateSales();
+  const message = await helpers.insertedSales(arrayBody, insertId);
+
+  return { type: 'SUCCESS', statusCode: 201, message };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
   insertProduct,
+  insertSales,
 };
