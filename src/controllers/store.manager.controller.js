@@ -30,6 +30,20 @@ const insertProductController = async (req, res) => {
   }
   return res.status(statusCode).json(message);
 };
+
+const updateProductById = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const { type, statusCode, message } = await Service.updateProductById(
+    +id,
+    name,
+  );
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: 'Product not found' });
+  }
+  return res.status(statusCode).json(message);
+};
+
 const getAllSales = async (_req, res) => {
   const { type, statusCode, message } = await Service.getAllSales();
   if (type === 'ERROR') {
@@ -66,4 +80,5 @@ module.exports = {
   insertSalesController,
   getAllSales,
   getSaleById,
+  updateProductById,
 };

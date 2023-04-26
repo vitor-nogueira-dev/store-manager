@@ -30,6 +30,16 @@ const insertProduct = async (product) => {
   };
 };
 
+const updateProductById = async (id, newName) => {
+  const update = await Model.updateProductById(id, newName);
+  if (!update) { return { type: 'ERROR', statusCode: 404, message: 'Product not found' }; }
+  return {
+    type: 'SUCCESS',
+    statusCode: 200,
+    message: { id, name: newName },
+  };
+};
+
 const getAllSales = async () => {
   const sales = await Model.getAllSales();
   if (!sales) {
@@ -70,4 +80,5 @@ module.exports = {
   insertSales,
   getAllSales,
   getSaleById,
+  updateProductById,
 };

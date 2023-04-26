@@ -5,6 +5,7 @@ const {
   insertSalesController,
   getAllSales,
   getSaleById,
+  updateProductById,
 } = require('./store.manager.controller');
 
 module.exports = {
@@ -14,4 +15,5 @@ module.exports = {
   insertSalesController,
   getAllSales,
   getSaleById,
+  updateProductById,
 };

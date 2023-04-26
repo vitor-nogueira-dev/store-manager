@@ -6,6 +6,7 @@ const {
   insertProductsSales,
   getAllSales,
   getSaleById,
+  updateProductById,
 } = require('./store.manager.models');
 
 module.exports = {
@@ -16,4 +17,5 @@ module.exports = {
   insertProductsSales,
   getAllSales,
   getSaleById,
+  updateProductById,
 };
