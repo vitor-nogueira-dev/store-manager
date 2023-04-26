@@ -3,6 +3,8 @@ const {
   getById,
   insertProductController,
   insertSalesController,
+  getAllSales,
+  getSaleById,
 } = require('./store.manager.controller');
 
 module.exports = {
@@ -10,4 +12,6 @@ module.exports = {
   getById,
   insertProductController,
   insertSalesController,
+  getAllSales,
+  getSaleById,
 };

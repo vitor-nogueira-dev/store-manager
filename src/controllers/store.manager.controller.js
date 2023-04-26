@@ -30,6 +30,23 @@ const insertProductController = async (req, res) => {
   }
   return res.status(statusCode).json(message);
 };
+const getAllSales = async (_req, res) => {
+  const { type, statusCode, message } = await Service.getAllSales();
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: 'Sale not found' });
+  }
+  return res.status(statusCode).json(message);
+};
+
+const getSaleById = async (req, res) => {
+  const { id } = req.params;
+  const { type, statusCode, message } = await Service.getSaleById(+id);
+  console.log(message.length, 'to aqui message');
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: 'Sale not found' });
+  }
+  return res.status(statusCode).json(message);
+};
 
 const insertSalesController = async (req, res) => {
   const arrayBody = req.body;
@@ -47,4 +64,6 @@ module.exports = {
   getById,
   insertProductController,
   insertSalesController,
+  getAllSales,
+  getSaleById,
 };

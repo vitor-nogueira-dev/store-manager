@@ -30,6 +30,25 @@ const insertProduct = async (product) => {
   };
 };
 
+const getAllSales = async () => {
+  const sales = await Model.getAllSales();
+  if (!sales) {
+    return { type: 'ERROR', statusCode: 404, message: 'Sales Not Found' };
+  }
+  return { type: 'SUCCESS', statusCode: 200, message: sales };
+};
+
+const getSaleById = async (id) => {
+  const sale = await Model.getSaleById(id);
+  console.log(sale, 'sale fora');
+
+  if (sale.length === 0) {
+    console.log(sale, 'sale');
+    return { type: 'ERROR', statusCode: 404, message: 'Sale not found' };
+  }
+  return { type: 'SUCCESS', statusCode: 200, message: sale };
+};
+
 const insertSales = async (arrayBody) => {
   const allProducts = await Model.getAllProducts();
   const verifica = helpers.verifyProductId(allProducts, arrayBody);
@@ -49,4 +68,6 @@ module.exports = {
   getProductById,
   insertProduct,
   insertSales,
+  getAllSales,
+  getSaleById,
 };

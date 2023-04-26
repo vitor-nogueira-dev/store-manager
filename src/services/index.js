@@ -3,6 +3,8 @@ const {
   getProductById,
   insertProduct,
   insertSales,
+  getAllSales,
+  getSaleById,
 } = require('./store.manager.services');
 
 module.exports = {
@@ -10,4 +12,6 @@ module.exports = {
   getProductById,
   insertProduct,
   insertSales,
+  getAllSales,
+  getSaleById,
 };

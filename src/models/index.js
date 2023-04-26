@@ -4,6 +4,8 @@ const {
   insertProduct,
   insertDateSales,
   insertProductsSales,
+  getAllSales,
+  getSaleById,
 } = require('./store.manager.models');
 
 module.exports = {
@@ -12,4 +14,6 @@ module.exports = {
   insertProduct,
   insertDateSales,
   insertProductsSales,
+  getAllSales,
+  getSaleById,
 };
