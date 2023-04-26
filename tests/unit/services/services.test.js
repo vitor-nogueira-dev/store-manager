@@ -57,5 +57,30 @@ describe("Testando camada Service", function () {
     //   expect(result.statusCode).to.be.equal(201);
     //   // expect(result.message).to.deep.equal(insertedSale);
     // });
+    it("Testando se GET /sales retorna uma lista de vendas", async function () {
+      // arrange
+      sinon.stub(Models, "getAllSales").resolves(Mock.sales);
+
+      // act
+      const result = await Services.getAllSales();
+
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(200);
+      expect(result.message).to.deep.equal(Mock.sales);
+    });
+    it("Testando se GET /sales/:id retorna a venda com o id corresponte", async function () {
+      // arrange
+      sinon.stub(Models, "getSaleById").resolves([[Mock.saleById]]);
+
+      // act
+      const result = await Services.getSaleById(1);
+
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(200);
+      // expect(result.message).to.deep.equal(saleById);
+    });
   });
+    
 });

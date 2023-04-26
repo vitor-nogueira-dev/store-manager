@@ -43,6 +43,28 @@ describe("Testando camada Model", function () {
     });
   });
   describe("Testando a camada Model /sales", () => {
+    it("Testando se GET /sales retorna o array de vendas", async function () {
+      // arrange
+      sinon.stub(connection, "execute").resolves([Mock.sales]);
+
+      // act
+      const result = await Models.getAllSales();
+
+      // assert
+      expect(result).to.be.an("array");
+      expect(result).to.deep.equal(Mock.sales);
+    });
+    it("Testando se GET /sales/:id retorna a venda com o id passado", async function () {
+      // arrange
+      sinon.stub(connection, "execute").resolves([Mock.saleById]);
+
+      // act
+      const result = await Models.getSaleById(1);
+
+      // assert
+      expect(result).to.be.an("object");
+      expect(result).to.deep.equal(Mock.saleById);
+    });
     it("Testando se POST /sales insere uma venda corretamente", async function () {
       // arrange
       sinon.stub(connection, "execute").resolves([{ insertId: 1 }]);

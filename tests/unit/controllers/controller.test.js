@@ -135,5 +135,49 @@ describe("Testando camada Controller Store Manager", function () {
       expect(res.json).to.have.been.calledOnce;
       expect(res.json).to.have.been.calledWith(Mock.insertedSale);
     });
+    it("Testando se o status é 200 e a lista de vendas", async function () {
+      // Arrange
+      const res = {};
+      const req = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon.stub(Services, "getAllSales").resolves({
+        type: "SUCCESS",
+        message: Mock.sales,
+        statusCode: 200,
+      });
+
+      // Act
+      await Controllers.getAllSales(req, res);
+
+      // Assert
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(Mock.sales);
+      expect(res.json).to.have.been.calledOnce;
+    });
+    it("Testando se o status é 200 e a lista de vendas por id", async function () {
+      // Arrange
+      const res = {};
+      const req = {
+        params: { id: 1 },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon.stub(Services, "getSaleById").resolves({
+        type: "SUCCESS",
+        message: Mock.saleById,
+        statusCode: 200,
+      });
+
+      // Act
+      await Controllers.getSaleById(req, res);
+
+      // Assert
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(Mock.saleById);
+      expect(res.json).to.have.been.calledOnce;
+    });
   });
 });

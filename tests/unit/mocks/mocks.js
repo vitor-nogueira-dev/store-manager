@@ -35,6 +35,24 @@ const insertedSale = {
   itemsSold: arraySales,
 };
 
+const sales = [
+  {
+    date: "2022-03-01T00:00:00.000Z",
+    productId: 1,
+    quantity: 2,
+  },
+  {
+    date: "2022-03-01T00:00:00.000Z",
+    productId: 2,
+    quantity: 1,
+  },
+];
+
+const saleById = {
+  date: "2022-03-01T00:00:00.000Z",
+  productId: 1,
+  quantity: 2,
+};
 
 module.exports = {
   storeManager,
@@ -44,4 +62,6 @@ module.exports = {
   insertSales,
   arraySales,
   insertedSale,
+  sales,
+  saleById
 };
