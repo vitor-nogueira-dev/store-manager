@@ -23,9 +23,25 @@ const insertedProduct = {
   name: 'Macbook Pro',
 };
 
+const insertSales = { insertIdSale: 5, produtId: 1, quantity: 2 };
+
+const arraySales = [
+  { productId: 1 },
+  { quantity: 0 },
+];
+
+const insertedSale = {
+  id: 1,
+  itemsSold: arraySales,
+};
+
+
 module.exports = {
   storeManager,
   storeManagerById,
   insertProduct,
   insertedProduct,
+  insertSales,
+  arraySales,
+  insertedSale,
 };

@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-// const Mock = require("../mocks/mocks");
+const Mock = require("../mocks/mocks");
 // const Services = require("../../../src/services");
 // const Controllers = require("../../../src/controllers");
 const Middleware = require("../../../src/middlewares");

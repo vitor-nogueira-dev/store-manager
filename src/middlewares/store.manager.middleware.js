@@ -15,9 +15,7 @@ const validName = (req, res, next) => {
 
 const verifyProductIdAndQuantity = (req, res, next) => {
   const products = req.body;
-  console.log(products, 'produtos');
-  const errorMessages = products
-    .map((product) => {
+  const errorMessages = products.map((product) => {
       const { productId, quantity } = product;
       if (!productId) {
         return { message: '"productId" is required' };

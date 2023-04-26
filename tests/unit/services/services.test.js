@@ -45,4 +45,17 @@ describe("Testando camada Service", function () {
       // expect(result.message).to.equal(insertedProduct);
     });
   });
+  describe("Testando camada Service /sales", function () {
+    // Error: Access denied for user ''@'172.18.0.1' (using password: NO)
+    // it("Testando se POST /sales insere uma venda corretamente", async function () {
+    //   // arrange
+    //   sinon.stub(Models, "insertDateSales").resolves([{ insertId: 1 }]);
+    //   // act
+    //   const result = await Services.insertSales(Mock.arraySales);
+    //   // assert
+    //   expect(result.type).to.be.equal("SUCCESS");
+    //   expect(result.statusCode).to.be.equal(201);
+    //   // expect(result.message).to.deep.equal(insertedSale);
+    // });
+  });
 });

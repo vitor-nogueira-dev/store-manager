@@ -111,4 +111,29 @@ describe("Testando camada Controller Store Manager", function () {
       );
     });
   });
+  describe("Testando camada Controller /sales", function () {
+    it("Ao cadastrar uma venda com sucesso deve retornar 201", async function () {
+      // Arrange
+      const res = {};
+      const req = {
+        body: Mock.arraySales,
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon.stub(Services, "insertSales").resolves({
+        type: "SUCCESS",
+        message: Mock.insertedSale,
+        statusCode: 201,
+      });
+
+      // Act
+      await Controllers.insertSalesController(req, res);
+
+      // Assert
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledOnce;
+      expect(res.json).to.have.been.calledWith(Mock.insertedSale);
+    });
+  });
 });

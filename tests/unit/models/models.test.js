@@ -42,4 +42,23 @@ describe("Testando camada Model", function () {
       expect(result).to.deep.equal(Mock.insertedProduct.id);
     });
   });
+  describe("Testando a camada Model /sales", () => {
+    it("Testando se POST /sales insere uma venda corretamente", async function () {
+      // arrange
+      sinon.stub(connection, "execute").resolves([{ insertId: 1 }]);
+
+      // act
+      const { insertIdSale, produtId, quantity } = Mock.insertSales;
+      const insertId = await Models.insertDateSales();
+      const result = await Models.insertProductsSales(
+        insertIdSale,
+        produtId,
+        quantity
+      );
+
+      // assert
+      expect(insertId).to.deep.equal(Mock.insertedProduct.id);
+      expect(result).to.deep.equal(Mock.insertedProduct.id);
+    });
+  });
 });
