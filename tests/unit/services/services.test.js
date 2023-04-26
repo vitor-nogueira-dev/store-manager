@@ -44,6 +44,16 @@ describe("Testando camada Service", function () {
       expect(result.statusCode).to.be.equal(201);
       // expect(result.message).to.equal(insertedProduct);
     });
+    it("Testando se PUT /products edita um produto corretamente", async function () {
+      // arrange
+      sinon.stub(Models, "updateProductById").resolves([{ affectedRows: 1 }]);
+      // act
+      const result = await Services.updateProductById(1, "teste");
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(200);
+      // expect(result.message).to.equal(insertedProduct);
+    });
   });
   describe("Testando camada Service /sales", function () {
     // Error: Access denied for user ''@'172.18.0.1' (using password: NO)

@@ -42,9 +42,6 @@ const updateProductById = async (id, newName) => {
 
 const getAllSales = async () => {
   const sales = await Model.getAllSales();
-  if (!sales) {
-    return { type: 'ERROR', statusCode: 404, message: 'Sales Not Found' };
-  }
   return { type: 'SUCCESS', statusCode: 200, message: sales };
 };
 

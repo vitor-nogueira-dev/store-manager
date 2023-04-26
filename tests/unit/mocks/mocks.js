@@ -23,6 +23,11 @@ const insertedProduct = {
   name: 'Macbook Pro',
 };
 
+const updateProduct = {
+  id: 1,
+  name: "AirPod Pro",
+};
+
 const insertSales = { insertIdSale: 5, produtId: 1, quantity: 2 };
 
 const arraySales = [
@@ -63,5 +68,6 @@ module.exports = {
   arraySales,
   insertedSale,
   sales,
-  saleById
+  saleById,
+  updateProduct,
 };

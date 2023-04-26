@@ -110,6 +110,31 @@ describe("Testando camada Controller Store Manager", function () {
         '"name" length must be at least 5 characters long'
       );
     });
+    it("Testando se PUT /products edita um produto corretamente", async function () {
+      // Arrange
+      const res = {};
+      const req = {
+        params: { id: 1 },
+        body: {
+          name: "MacBook Pro",
+        },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon.stub(Services, "updateProductById").resolves({
+        type: "SUCCESS",
+        statusCode: 200,
+        message: Mock.updateProduct,
+      });
+
+      // Act
+      await Controllers.updateProductById(req, res);
+
+      // Assert
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(Mock.updateProduct);
+    });
   });
   describe("Testando camada Controller /sales", function () {
     it("Ao cadastrar uma venda com sucesso deve retornar 201", async function () {
