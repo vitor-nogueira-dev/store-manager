@@ -6,6 +6,7 @@ const {
   getAllSales,
   getSaleById,
   updateProductById,
+  deleteProductById,
 } = require('./store.manager.services');
 
 module.exports = {
@@ -16,4 +17,5 @@ module.exports = {
   getAllSales,
   getSaleById,
   updateProductById,
+  deleteProductById,
 };

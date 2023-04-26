@@ -40,6 +40,12 @@ const updateProductById = async (id, newName) => {
   };
 };
 
+const deleteProductById = async (id) => {
+  const deleteProduct = await Model.deleteProductById(id);
+  if (!deleteProduct) { return { type: 'ERROR', statusCode: 404, message: 'Product not found' }; }
+  return { type: 'SUCCESS', statusCode: 204, message: null };
+};
+
 const getAllSales = async () => {
   const sales = await Model.getAllSales();
   return { type: 'SUCCESS', statusCode: 200, message: sales };
@@ -78,4 +84,5 @@ module.exports = {
   getAllSales,
   getSaleById,
   updateProductById,
+  deleteProductById,
 };

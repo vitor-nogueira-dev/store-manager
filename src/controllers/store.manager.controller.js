@@ -44,6 +44,15 @@ const updateProductById = async (req, res) => {
   return res.status(statusCode).json(message);
 };
 
+const deleteProductById = async (req, res) => {
+  const { id } = req.params;
+  const { type, statusCode } = await Service.deleteProductById(+id);
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: 'Product not found' });
+  }
+  return res.sendStatus(statusCode);
+};
+
 const getAllSales = async (_req, res) => {
   const { type, statusCode, message } = await Service.getAllSales();
   if (type === 'ERROR') {
@@ -81,4 +90,5 @@ module.exports = {
   getAllSales,
   getSaleById,
   updateProductById,
+  deleteProductById,
 };
