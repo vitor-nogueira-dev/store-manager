@@ -1,6 +1,11 @@
-const { getAllProducts, getProductById } = require('./store.manager.services');
+const {
+  getAllProducts,
+  getProductById,
+  insertProduct,
+} = require('./store.manager.services');
 
 module.exports = {
   getAllProducts,
   getProductById,
+  insertProduct,
 };

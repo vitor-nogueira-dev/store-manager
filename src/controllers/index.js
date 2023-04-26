@@ -1,6 +1,11 @@
-const { getAllProducts, getById } = require('./store.manager.controller');
+const {
+  getAllProducts,
+  getById,
+  insertProductController,
+} = require('./store.manager.controller');
 
 module.exports = {
   getAllProducts,
   getById,
+  insertProductController,
 };

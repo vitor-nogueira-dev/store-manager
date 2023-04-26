@@ -19,7 +19,17 @@ const getById = async (req, res) => {
   return res.status(statusCode).json(message);
 };
 
+const insertProductController = async (req, res) => {
+  const { name } = req.body;
+  const { type, statusCode, message } = await Service.insertProduct(name);
+  if (type === 'ERROR') {
+    return res.status(statusCode).json(message);
+  }
+  return res.status(statusCode).json(message);
+};
+
 module.exports = {
   getAllProducts,
   getById,
+  insertProductController,
 };

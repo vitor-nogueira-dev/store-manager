@@ -1,4 +1,5 @@
 const Model = require('../models');
+const Schemas = require('./validations/schemas');
 
 const getAllProducts = async () => {
   const products = await Model.getAllProducts();
@@ -17,7 +18,28 @@ const getProductById = async (id) => {
   return { type: 'SUCCESS', statusCode: 200, message: product };
 };
 
+const insertProduct = async (product) => {
+  const { error } = Schemas.schemaName.validate(product);
+  if (error) {
+    return {
+      type: 'ERROR',
+      statusCode: 422,
+      message: error.details[0].message,
+    };
+  }
+  const newProduct = await Model.insertProduct(product);
+  if (!newProduct) {
+    return { type: 'ERROR', statusCode: 400, message: 'Bad Request' };
+  }
+  return {
+    type: 'SUCCESS',
+    statusCode: 201,
+    message: { id: newProduct, name: product },
+  };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
+  insertProduct,
 };
