@@ -34,5 +34,15 @@ describe("Testando camada Service", function () {
       expect(result.statusCode).to.be.equal(200);
       expect(result.message).to.deep.equal(Mock.storeManager);
     });
+    it("Testando se POST /products insere um produto corretamente", async function () {
+      // arrange
+      sinon.stub(Models, "insertProduct").resolves([{ insertId: 1 }]);
+      // act
+      const result = await Services.insertProduct(Mock.insertProduct.name);
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(201);
+      // expect(result.message).to.equal(insertedProduct);
+    });
   });
 });

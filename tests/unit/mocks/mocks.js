@@ -14,7 +14,18 @@ const storeManagerById = {
   name: "Fulano de Tal",
 };
 
+const insertProduct = {
+  name: 'Macbook Pro',
+};
+
+const insertedProduct = {
+  id: 1,
+  name: 'Macbook Pro',
+};
+
 module.exports = {
   storeManager,
   storeManagerById,
+  insertProduct,
+  insertedProduct,
 };
