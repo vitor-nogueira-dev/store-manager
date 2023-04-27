@@ -34,6 +34,10 @@ const arraySales = [
   { productId: 1 },
   { quantity: 0 },
 ];
+const arraySalesAll = [
+  { productId: 1, quantity: 2  },
+  { quantity: 0,  productId: 2 },
+];
 
 const insertedSale = {
   id: 1,
@@ -70,4 +74,5 @@ module.exports = {
   sales,
   saleById,
   updateProduct,
+  arraySalesAll,
 };

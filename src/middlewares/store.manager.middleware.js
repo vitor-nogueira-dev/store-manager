@@ -17,16 +17,15 @@ const verifyProductIdAndQuantity = (req, res, next) => {
   const products = req.body;
   console.log(products, 'middlewares');
   const errorMessages = products.map((product) => {
-      const { productId, quantity } = product;
-      if (productId === undefined) {
-        return { message: '"productId" is required' };
-      }
-      if (quantity === undefined) {
-        return { message: '"quantity" is required' };
-      }
-      return null;
-    })
-    .filter((message) => message !== null);
+    const { productId, quantity } = product;
+    if (productId === undefined) {
+      return { message: '"productId" is required' };
+    }
+    if (quantity === undefined) {
+      return { message: '"quantity" is required' };
+    }
+    return null;
+  }).filter((message) => message !== null);
 
   if (errorMessages.length > 0) {
     return res.status(400).json(errorMessages[0]);

@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
-const connection = require("../../../src/db/connection");
+
 const Mock = require("../mocks/mocks");
 const Services = require("../../../src/services");
 const Models = require("../../../src/models");
@@ -77,17 +77,6 @@ describe("Testando camada Service", function () {
     });
   });
   describe("Testando camada Service /sales", function () {
-    // Error: Access denied for user ''@'172.18.0.1' (using password: NO)
-    // it("Testando se POST /sales insere uma venda corretamente", async function () {
-    //   // arrange
-    //   sinon.stub(Models, "insertDateSales").resolves([{ insertId: 1 }]);
-    //   // act
-    //   const result = await Services.insertSales(Mock.arraySales);
-    //   // assert
-    //   expect(result.type).to.be.equal("SUCCESS");
-    //   expect(result.statusCode).to.be.equal(201);
-    //   // expect(result.message).to.deep.equal(insertedSale);
-    // });
     it("Testando se GET /sales retorna uma lista de vendas", async function () {
       // arrange
       sinon.stub(Models, "getAllSales").resolves(Mock.sales);
@@ -120,6 +109,15 @@ describe("Testando camada Service", function () {
       // assert
       expect(result.type).to.be.equal("SUCCESS");
       expect(result.statusCode).to.be.equal(204);
+    });
+    it("Testando se PUT /sales edita uma venda corretamente", async function () {
+      // arrange
+      sinon.stub(Models, "updateSaleById").resolves([{ affectedRows: 1 }]);
+      // act
+      const result = await Services.updateSaleById(1, Mock.arraySalesAll);
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(200);
     });
   });
 });

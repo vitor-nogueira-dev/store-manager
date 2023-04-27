@@ -1,5 +1,5 @@
-const StoreManagerRouter = require('./store.manager.routes.js');
-const SalesManagerRouter = require('./sales.routes.js');
+const StoreManagerRouter = require('./store.manager.routes');
+const SalesManagerRouter = require('./sales.routes');
 
 module.exports = {
   StoreManagerRouter,
