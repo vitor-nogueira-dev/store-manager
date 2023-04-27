@@ -104,6 +104,15 @@ const deleteSaleById = async (req, res) => {
   return res.status(statusCode).send();
 };
 
+const searchByQuery = async (req, res) => {
+  const { q } = req.query;
+  const { type, statusCode, message: value } = await Service.searchByQuery(q);
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: value });
+  }
+  return res.status(statusCode).json(value);
+};
+
 module.exports = {
   getAllProducts,
   getById,
@@ -115,4 +124,5 @@ module.exports = {
   deleteProductById,
   deleteSaleById,
   updateSaleById,
+  searchByQuery,
 };

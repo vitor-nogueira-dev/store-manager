@@ -77,15 +77,6 @@ const insertSales = async (arrayBody) => {
   return { type: 'SUCCESS', statusCode: 201, message };
 };
 
-// const updateSaleById = async (saleId, arrayBody) => {
-//   // const isValid = arrayBody.map(helpers.verifyProductId);
-
-//   const existSale = await getSaleById(saleId);
-
-//   const message = { saleId: resultSaleId, itemsUpdated: arrayBody };
-//   return { type: 'SUCCESS', statusCode: 200, message };
-// };
-
 const deleteSaleById = async (id) => {
   const deleteSale = await Model.deleteSaleById(id);
   if (deleteSale === 0) {
@@ -116,6 +107,17 @@ const updateSaleById = async (saleId, arrayBody) => {
   };
 };
 
+const searchByQuery = async (query) => {
+  const products = await Model.getAllProducts();
+  if (!products) {
+    return { type: 'ERROR', statusCode: 404, message: 'Products Not Found' };
+  }
+  const filteredProducts = products.filter((product) =>
+    product.name.includes(query));
+  const filter = query === '' ? products : filteredProducts;
+  return { type: 'SUCCESS', statusCode: 200, message: filter };
+};
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -127,4 +129,5 @@ module.exports = {
   deleteProductById,
   deleteSaleById,
   updateSaleById,
+  searchByQuery,
 };

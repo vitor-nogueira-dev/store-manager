@@ -4,6 +4,7 @@ const Middleware = require('../middlewares/index');
 
 const router = express.Router();
 
+router.get('/search', Controller.searchByQuery);
 router.get('/:id', Controller.getById);
 router.get('/', Controller.getAllProducts);
 router.post('/', Middleware.validName, Controller.insertProductController);

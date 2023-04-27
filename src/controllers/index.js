@@ -9,6 +9,7 @@ const {
   deleteProductById,
   deleteSaleById,
   updateSaleById,
+  searchByQuery,
 } = require('./store.manager.controller');
 
 module.exports = {
@@ -22,4 +23,5 @@ module.exports = {
   deleteProductById,
   deleteSaleById,
   updateSaleById,
+  searchByQuery,
 };
