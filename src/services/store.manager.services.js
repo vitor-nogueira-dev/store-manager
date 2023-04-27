@@ -3,9 +3,6 @@ const helpers = require('../helpers');
 
 const getAllProducts = async () => {
   const products = await Model.getAllProducts();
-  if (!products) {
-    return { type: 'ERROR', statusCode: 404, message: 'Products Not Found' };
-  }
   return { type: 'SUCCESS', statusCode: 200, message: products };
 };
 

@@ -22,6 +22,18 @@ describe("Testando camada Service", function () {
       expect(result.statusCode).to.be.equal(404);
       expect(result.message).to.be.equal("Product not found");
     });
+    it("Testando se GET /products/:id retorna o produto com id buscado no param", async function () {
+      // arrange
+      sinon.stub(Models, "getProductById").resolves([Mock.storeManagerById]);
+
+      // act
+      const result = await Services.getProductById();
+
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(200);
+      expect(result.message[0]).to.be.equal(Mock.storeManagerById);
+    });
     it("Testando se GET /products retorna a lista completa de produtos", async function () {
       // arrange
       sinon.stub(Models, "getAllProducts").resolves(Mock.storeManager);
@@ -53,6 +65,15 @@ describe("Testando camada Service", function () {
       expect(result.type).to.be.equal("SUCCESS");
       expect(result.statusCode).to.be.equal(200);
       // expect(result.message).to.equal(insertedProduct);
+    });
+    it("Testando se DELETE /products deleta um produto corretamente", async function () {
+      // arrange
+      sinon.stub(Models, "deleteProductById").resolves([{ affectedRows: 1 }]);
+      // act
+      const result = await Services.deleteProductById(1);
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(204);
     });
   });
   describe("Testando camada Service /sales", function () {
@@ -91,6 +112,14 @@ describe("Testando camada Service", function () {
       expect(result.statusCode).to.be.equal(200);
       // expect(result.message).to.deep.equal(saleById);
     });
+    it("Testando se DELETE /sales deleta uma venda corretamente", async function () {
+      // arrange
+      sinon.stub(Models, "deleteSaleById").resolves([{ affectedRows: 1 }]);
+      // act
+      const result = await Services.deleteSaleById(1);
+      // assert
+      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.statusCode).to.be.equal(204);
+    });
   });
-    
 });

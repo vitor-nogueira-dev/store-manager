@@ -135,6 +135,26 @@ describe("Testando camada Controller Store Manager", function () {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(Mock.updateProduct);
     });
+    it("Testando se DELETE /products deleta um produto corretamente", async function () {
+      // arrange
+      const res = {};
+      const req = {
+        params: { id: 1 },
+      };
+      res.status = sinon.stub().returns(res);
+      res.send = sinon.stub().returns();
+
+      res.json = sinon.stub().returns();
+      sinon.stub(Services, "deleteProductById").resolves({
+        type: "SUCCESS",
+        statusCode: 204,
+      });
+
+      //act
+      await Controllers.deleteProductById(req, res);
+      //assert
+      expect(res.status).to.have.been.calledWith(204);
+    });
   });
   describe("Testando camada Controller /sales", function () {
     it("Ao cadastrar uma venda com sucesso deve retornar 201", async function () {
@@ -203,6 +223,25 @@ describe("Testando camada Controller Store Manager", function () {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(Mock.saleById);
       expect(res.json).to.have.been.calledOnce;
+    });
+    it("Testando se DELETE /sales deleta uma venda corretamente", async function () {
+      // arrange
+      const res = {};
+      const req = {
+        params: { id: 1 },
+      };
+      res.status = sinon.stub().returns(res);
+      res.send = sinon.stub().returns();
+      res.json = sinon.stub().returns();
+      sinon.stub(Services, "deleteSaleById").resolves({
+        type: "SUCCESS",
+        statusCode: 204,
+      });
+
+      //act
+      await Controllers.deleteSaleById(req, res);
+      //assert
+      expect(res.status).to.have.been.calledWith(204);
     });
   });
 });

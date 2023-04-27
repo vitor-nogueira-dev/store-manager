@@ -50,7 +50,7 @@ const deleteProductById = async (req, res) => {
   if (type === 'ERROR') {
     return res.status(statusCode).json({ message: 'Product not found' });
   }
-  return res.sendStatus(statusCode);
+  return res.status(statusCode).send();
 };
 
 const getAllSales = async (_req, res) => {
@@ -84,11 +84,11 @@ const insertSalesController = async (req, res) => {
 
 const deleteSaleById = async (req, res) => {
   const { id } = req.params;
-  const { type, statusCode, message } = await Service.deleteSaleById(+id);
-  if (type === 'ERROR') {
+  const { type, statusCode } = await Service.deleteSaleById(+id);
+  if (type === 'ERROR') { 
     return res.status(statusCode).json({ message: 'Sale not found' });
   }
-  return res.sendStatus(statusCode);
+  return res.status(statusCode).send();
 };
 
 module.exports = {

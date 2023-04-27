@@ -51,6 +51,16 @@ describe("Testando camada Model", function () {
       // assert
       expect(result).to.deep.equal(Mock.insertedProduct.id);
     });
+    it("Testando se DELETE /products deleta um produto corretamente", async function () {
+      // arrange
+      sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
+
+      // act
+      const result = await Models.deleteProductById(1);
+
+      // assert
+      expect(result).to.deep.equal(1);
+    });
   });
   describe("Testando a camada Model /sales", () => {
     it("Testando se GET /sales retorna o array de vendas", async function () {
@@ -91,6 +101,16 @@ describe("Testando camada Model", function () {
       // assert
       expect(insertId).to.deep.equal(Mock.insertedProduct.id);
       expect(result).to.deep.equal(Mock.insertedProduct.id);
+    });
+    it("Testando se DELETE /sales deleta uma venda corretamente", async function () {
+      // arrange
+      sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
+
+      // act
+      const result = await Models.deleteSaleById(1);
+
+      // assert
+      expect(result).to.deep.equal(1);
     });
   });
 });
