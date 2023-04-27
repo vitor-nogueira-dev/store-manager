@@ -82,6 +82,19 @@ const insertSalesController = async (req, res) => {
   return res.status(statusCode).json(message);
 };
 
+const updateSaleById = async (req, res) => {
+  const { id } = req.params;
+  const arrayBody = req.body;
+  const { type, statusCode, message: value } = await Service.updateSaleById(
+    +id,
+    arrayBody,
+  );
+  if (type === 'ERROR') {
+    return res.status(statusCode).json({ message: value });
+  }
+  return res.status(statusCode).json(value);
+};
+
 const deleteSaleById = async (req, res) => {
   const { id } = req.params;
   const { type, statusCode } = await Service.deleteSaleById(+id);
@@ -101,4 +114,5 @@ module.exports = {
   updateProductById,
   deleteProductById,
   deleteSaleById,
+  updateSaleById,
 };

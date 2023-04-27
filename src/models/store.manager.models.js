@@ -82,6 +82,25 @@ const insertProductsSales = async (insertIdSale, productId, quantity) => {
   return insertId;
 };
 
+const updateSaleById = async (saleId, arrayBody) => {
+  console.log(arrayBody, 'models');
+  const cases = arrayBody && arrayBody
+    .map(({ productId, quantity }) => `WHEN ${productId} THEN ${quantity}`)
+    .join(' ');
+
+  const sqlQuery = `
+    UPDATE
+      StoreManager.sales_products
+    SET 
+      quantity = CASE product_id ${cases} ELSE quantity END
+    WHERE
+      sale_id = ${saleId};
+  `;
+
+  const [{ affectedRows }] = await connection.execute(sqlQuery);
+  return affectedRows;
+};
+
 const deleteSaleById = async (id) => {
   const [{ affectedRows }] = await connection.execute(
     'DELETE FROM StoreManager.sales WHERE id = ?',
@@ -101,4 +120,5 @@ module.exports = {
   updateProductById,
   deleteProductById,
   deleteSaleById,
+  updateSaleById,
 };

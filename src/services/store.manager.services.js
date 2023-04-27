@@ -29,7 +29,9 @@ const insertProduct = async (product) => {
 
 const updateProductById = async (id, newName) => {
   const update = await Model.updateProductById(id, newName);
-  if (!update) { return { type: 'ERROR', statusCode: 404, message: 'Product not found' }; }
+  if (!update) {
+    return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+  }
   return {
     type: 'SUCCESS',
     statusCode: 200,
@@ -39,7 +41,9 @@ const updateProductById = async (id, newName) => {
 
 const deleteProductById = async (id) => {
   const deleteProduct = await Model.deleteProductById(id);
-  if (!deleteProduct) { return { type: 'ERROR', statusCode: 404, message: 'Product not found' }; }
+  if (!deleteProduct) {
+    return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+  }
   return { type: 'SUCCESS', statusCode: 204, message: null };
 };
 
@@ -73,10 +77,43 @@ const insertSales = async (arrayBody) => {
   return { type: 'SUCCESS', statusCode: 201, message };
 };
 
+// const updateSaleById = async (saleId, arrayBody) => {
+//   // const isValid = arrayBody.map(helpers.verifyProductId);
+
+//   const existSale = await getSaleById(saleId);
+
+//   const message = { saleId: resultSaleId, itemsUpdated: arrayBody };
+//   return { type: 'SUCCESS', statusCode: 200, message };
+// };
+
 const deleteSaleById = async (id) => {
   const deleteSale = await Model.deleteSaleById(id);
-  if (deleteSale === 0) { return { type: 'ERROR', statusCode: 404 }; }
+  if (deleteSale === 0) {
+    return { type: 'ERROR', statusCode: 404 };
+  }
   return { type: 'SUCCESS', statusCode: 204, message: null };
+};
+
+const updateSaleById = async (saleId, arrayBody) => {
+  const allProducts = await Model.getAllProducts();
+  const existProduct = helpers.verifyProductId(allProducts, arrayBody);
+  const sales = await Model.getSaleById(saleId);
+  console.log(sales, 'sales');
+
+  if (!existProduct) {
+    return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+  }
+  if (sales.length === 0) {
+    return { type: 'ERROR', statusCode: 404, message: 'Sale not found' };
+  }
+
+  const resultSaleId = await Model.updateSaleById(saleId, arrayBody);
+
+  return {
+    type: 'SUCCESS',
+    statusCode: 200,
+    message: { saleId: resultSaleId, itemsUpdated: arrayBody },
+  };
 };
 
 module.exports = {
@@ -89,4 +126,5 @@ module.exports = {
   updateProductById,
   deleteProductById,
   deleteSaleById,
+  updateSaleById,
 };
