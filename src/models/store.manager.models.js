@@ -1,16 +1,17 @@
 const camelize = require('camelize');
 const connection = require('../db/connection');
+const { QUERYS } = require('../utils/constantes');
 
 const getAllProducts = async () => {
   const [result] = await connection.execute(
-    'SELECT * FROM StoreManager.products ORDER BY id;',
+    QUERYS.getAllProducts,
   );
   return result;
 };
 
 const getProductById = async (id) => {
   const [[result]] = await connection.execute(
-    'SELECT * FROM StoreManager.products WHERE id = ?;',
+    QUERYS.getProductById,
     [id],
   );
   return result;
@@ -18,7 +19,7 @@ const getProductById = async (id) => {
 
 const insertProduct = async (product) => {
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO StoreManager.products (name) VALUES (?);',
+    QUERYS.insertProduct,
     [product],
   );
   console.log(insertId, 'insertId');
@@ -27,7 +28,7 @@ const insertProduct = async (product) => {
 
 const updateProductById = async (id, newName) => {
   const [{ affectedRows }] = await connection.execute(
-    'UPDATE StoreManager.products SET name = ? WHERE id = ?;',
+    QUERYS.updateProductById,
     [newName, id],
   );
   return affectedRows;
@@ -35,7 +36,7 @@ const updateProductById = async (id, newName) => {
 
 const deleteProductById = async (id) => {
   const [{ affectedRows }] = await connection.execute(
-    'DELETE FROM StoreManager.products WHERE id = ?;',
+    QUERYS.deleteProductById,
     [id],
   );
   return affectedRows;
@@ -43,20 +44,14 @@ const deleteProductById = async (id) => {
 
 const getAllSales = async () => {
   const [result] = await connection.execute(
-    `SELECT * 
-      FROM StoreManager.sales_products
-      INNER JOIN StoreManager.sales ON sales_products.sale_id = sales.id
-      ORDER BY sale_id, product_id;`,
+    QUERYS.getAllSales,
   );
   return camelize(result);
 };
 
 const getSaleById = async (id) => {
   const [result] = await connection.execute(
-    `SELECT s.date, sp.product_id AS productId, sp.quantity
-    FROM StoreManager.sales s
-    INNER JOIN StoreManager.sales_products sp ON s.id = sp.sale_id
-    WHERE s.id = ?;`,
+    QUERYS.getSaleById,
     [id],
   );
 
@@ -65,14 +60,14 @@ const getSaleById = async (id) => {
 
 const insertDateSales = async () => {
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO StoreManager.sales (date) VALUES (NOW());',
+    QUERYS.insertDateSales,
   );
   return insertId;
 };
 
 const insertProductsSales = async (insertIdSale, productId, quantity) => {
   const [{ insertId }] = await connection.execute(
-    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
+    QUERYS.insertProductsSales,
     [insertIdSale, productId, quantity],
   );
   console.log(insertId);
@@ -86,24 +81,15 @@ const updateSaleById = async (saleId, arrayBody) => {
       .map(({ productId, quantity }) => `WHEN ${productId} THEN ${quantity}`)
       .join(' ');
 
-  const sqlQuery = `UPDATE
-  StoreManager.sales_products
-SET
-  quantity = CASE
-    product_id
-    ${cases}
-    ELSE quantity
-  END
-WHERE
-  sale_id = ${saleId};`;
-
-  const [{ affectedRows }] = await connection.execute(sqlQuery);
+  const [{ affectedRows }] = await connection.execute(
+    QUERYS.updateSaleById(cases, saleId),
+  );
   return affectedRows;
 };
 
 const deleteSaleById = async (id) => {
   const [{ affectedRows }] = await connection.execute(
-    'DELETE FROM StoreManager.sales WHERE id = ?;',
+    QUERYS.deleteSaleById,
     [id],
   );
   return affectedRows;
@@ -111,7 +97,7 @@ const deleteSaleById = async (id) => {
 
 const searchByQuery = async (searchTerm) => {
   const [results] = await connection.execute(
-    'SELECT * FROM StoreManager.products WHERE name LIKE ?;',
+   QUERYS.searchByQuery,
     [`%${searchTerm}%`],
   );
   return results;
