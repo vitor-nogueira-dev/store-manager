@@ -33,17 +33,16 @@ const verifyProductIdAndQuantity = (req, res, next) => {
 
   return next();
 };
+
 const verifyQuantity = (req, res, next) => {
   const products = req.body;
-  const errorMessages = products
-    .map((product) => {
-      const { quantity } = product;
-      if (quantity < 1) {
-        return { message: '"quantity" must be greater than or equal to 1' };
-      }
-      return null;
-    })
-    .filter((message) => message !== null);
+  const errorMessages = products.reduce((acc, product) => {
+    const { quantity } = product;
+    if (quantity < 1) {
+      acc.push({ message: '"quantity" must be greater than or equal to 1' });
+    }
+    return acc;
+  }, []);
 
   if (errorMessages.length > 0) {
     return res.status(422).json(errorMessages[0]);
