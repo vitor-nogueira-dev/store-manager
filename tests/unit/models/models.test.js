@@ -138,13 +138,13 @@ describe("Testando camada Model", function () {
       // Arrange
 
       const stubExecute = sinon.stub();
-      stubExecute.resolves([{ affectedRows: 1 }]);
+      stubExecute.resolves([{ affectedRows: 2 }]);
 
       // Act
       const result = await Models.updateSaleById(Mock.saleId, Mock.arrayBody);
 
       // Assert
-      expect(result).to.be.equal(1);
+      expect(result).to.be.equal(2);
     });
   });
 });
