@@ -41,4 +41,8 @@ const QUERYS = {
   searchByQuery: 'SELECT * FROM StoreManager.products WHERE name LIKE ?;',
 };
 
-module.exports = { QUERYS };
+const PRODUCT_NOT_FOUND = 'Product not found';
+const SALE_N0T_FOUND = 'Sale not found';
+const ERROR = 'ERROR';
+
+module.exports = { QUERYS, PRODUCT_NOT_FOUND, SALE_N0T_FOUND, ERROR };

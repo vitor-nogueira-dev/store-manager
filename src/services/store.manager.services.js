@@ -1,5 +1,6 @@
 const Model = require('../models/store.manager.models');
 const Helpers = require('../helpers/functions');
+const { PRODUCT_NOT_FOUND, SALE_N0T_FOUND, ERROR } = require('../utils/constantes');
 
 const Services = {
   getAllProducts: async () => {
@@ -10,7 +11,7 @@ const Services = {
   getProductById: async (id) => {
     const product = await Model.getProductById(id);
     if (!product) {
-      return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+      return { type: ERROR, statusCode: 404, message: PRODUCT_NOT_FOUND };
     }
     return { type: null, statusCode: 200, message: product };
   },
@@ -26,7 +27,7 @@ const Services = {
   updateProductById: async (id, newName) => {
     const update = await Model.updateProductById(id, newName);
     if (!update) {
-      return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+      return { type: ERROR, statusCode: 404, message: PRODUCT_NOT_FOUND };
     }
     return {
       type: null,
@@ -38,7 +39,7 @@ const Services = {
   deleteProductById: async (id) => {
     const deleteProduct = await Model.deleteProductById(id);
     if (!deleteProduct) {
-      return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+      return { type: ERROR, statusCode: 404, message: PRODUCT_NOT_FOUND };
     }
     return { type: null, statusCode: 204, message: null };
   },
@@ -52,7 +53,7 @@ const Services = {
     const sale = await Model.getSaleById(id);
 
     if (sale.length === 0) {
-      return { type: 'ERROR', statusCode: 404, message: 'Sale not found' };
+      return { type: ERROR, statusCode: 404, message: SALE_N0T_FOUND };
     }
     return { type: null, statusCode: 200, message: sale };
   },
@@ -62,7 +63,7 @@ const Services = {
     const verifica = Helpers.verifyProductId(allProducts, arrayBody);
 
     if (!verifica) {
-      return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+      return { type: ERROR, statusCode: 404, message: PRODUCT_NOT_FOUND };
     }
 
     const insertId = await Model.insertDateSales();
@@ -77,10 +78,10 @@ const Services = {
     const sales = await Model.getSaleById(saleId);
 
     if (!existProduct) {
-      return { type: 'ERROR', statusCode: 404, message: 'Product not found' };
+      return { type: ERROR, statusCode: 404, message: PRODUCT_NOT_FOUND };
     }
     if (sales.length === 0) {
-      return { type: 'ERROR', statusCode: 404, message: 'Sale not found' };
+      return { type: ERROR, statusCode: 404, message: SALE_N0T_FOUND };
     }
 
     const resultSaleId = await Model.updateSaleById(saleId, arrayBody);
@@ -95,7 +96,7 @@ const Services = {
   deleteSaleById: async (id) => {
     const deleteSale = await Model.deleteSaleById(id);
     if (deleteSale === 0) {
-      return { type: 'ERROR', statusCode: 404, message: 'Sale not found' };
+      return { type: ERROR, statusCode: 404, message: SALE_N0T_FOUND };
     }
     return { type: null, statusCode: 204, message: null };
   },
