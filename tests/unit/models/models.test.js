@@ -61,6 +61,17 @@ describe("Testando camada Model", function () {
       // assert
       expect(result).to.deep.equal(1);
     });
+    it("Testando se GET /search recupera os produtos corretamento pelo termo de pesquisa", async function () {
+      // arrange
+      sinon.stub(connection, "execute").resolves([Mock.searchName]);
+
+      // act
+      const result = await Models.searchByQuery("Thor");
+
+      // assert
+      expect(result).to.be.an("array");
+      expect(result).to.deep.equal(Mock.searchName);
+    });
   });
   describe("Testando a camada Model /sales", () => {
     it("Testando se GET /sales retorna o array de vendas", async function () {
@@ -92,7 +103,7 @@ describe("Testando camada Model", function () {
       // act
       const { insertIdSale, produtId, quantity } = Mock.insertSales;
       const insertId = await Models.insertDateSales();
-      
+
       const result = await Models.insertProductsSales(
         insertIdSale,
         produtId,
@@ -125,15 +136,15 @@ describe("Testando camada Model", function () {
     });
     it("Testando se PUT /sales edita uma venda com 2 produtos corretamente", async function () {
       // Arrange
-    
+
       const stubExecute = sinon.stub();
-      stubExecute.resolves([{ affectedRows: 2 }]);
+      stubExecute.resolves([{ affectedRows: 1 }]);
 
       // Act
       const result = await Models.updateSaleById(Mock.saleId, Mock.arrayBody);
 
       // Assert
-      expect(result).to.be.equal(2);
+      expect(result).to.be.equal(1);
     });
   });
 });
