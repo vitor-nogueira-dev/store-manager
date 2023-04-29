@@ -17,7 +17,6 @@ const Models = {
     const [{ insertId }] = await connection.execute(QUERYS.insertProduct, [
       product,
     ]);
-    console.log(insertId, 'insertId');
     return insertId;
   },
 
@@ -57,7 +56,6 @@ const Models = {
       QUERYS.insertProductsSales,
       [insertIdSale, productId, quantity],
     );
-    console.log(insertId);
     return insertId;
   },
 
