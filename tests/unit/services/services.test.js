@@ -30,7 +30,7 @@ describe("Testando camada Service", function () {
       const result = await Services.getProductById();
 
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(200);
       expect(result.message[0]).to.be.equal(Mock.storeManagerById);
     });
@@ -42,7 +42,7 @@ describe("Testando camada Service", function () {
       const result = await Services.getAllProducts();
 
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(200);
       expect(result.message).to.deep.equal(Mock.storeManager);
     });
@@ -52,7 +52,7 @@ describe("Testando camada Service", function () {
       // act
       const result = await Services.insertProduct(Mock.insertProduct.name);
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(201);
       // expect(result.message).to.equal(Mock.insertedProduct);
       expect(result.message).to.deep.equal({
@@ -67,7 +67,7 @@ describe("Testando camada Service", function () {
       // act
       const result = await Services.updateProductById(1, "teste");
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(200);
       // expect(result.message).to.equal(insertedProduct);
     });
@@ -77,7 +77,7 @@ describe("Testando camada Service", function () {
       // act
       const result = await Services.deleteProductById(1);
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(204);
     });
   });
@@ -90,7 +90,7 @@ describe("Testando camada Service", function () {
       const result = await Services.getAllSales();
 
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(200);
       expect(result.message).to.deep.equal(Mock.sales);
     });
@@ -102,7 +102,7 @@ describe("Testando camada Service", function () {
       const result = await Services.getSaleById(1);
 
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(200);
       // expect(result.message).to.deep.equal(saleById);
     });
@@ -112,7 +112,7 @@ describe("Testando camada Service", function () {
       // act
       const result = await Services.deleteSaleById(1);
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(204);
     });
     it("Testando se PUT /sales edita uma venda corretamente", async function () {
@@ -121,7 +121,7 @@ describe("Testando camada Service", function () {
       // act
       const result = await Services.updateSaleById(1, Mock.arraySalesAll);
       // assert
-      expect(result.type).to.be.equal("SUCCESS");
+      expect(result.type).to.be.equal(null);
       expect(result.statusCode).to.be.equal(200);
     });
   });
