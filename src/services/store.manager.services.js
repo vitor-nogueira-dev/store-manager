@@ -72,7 +72,7 @@ const Services = {
   updateSaleById: async (saleId, arrayBody) => {
     const allProducts = await Model.getAllProducts();
     const existProduct = Helpers.verifyProductId(allProducts, arrayBody);
-    const sales = await Model.getSaleById(saleId);
+    const sales = await Model.getSaleById(saleId); 
 
     if (!existProduct) {
       return Helpers.newReturn(ERROR, 404, PRODUCT_NOT_FOUND);
@@ -90,7 +90,7 @@ const Services = {
 
   deleteSaleById: async (id) => {
     const deleteSale = await Model.deleteSaleById(id);
-    if (deleteSale === 0) {
+    if (!deleteSale) {
       return Helpers.newReturn(ERROR, 404, SALE_N0T_FOUND);
     }
     return Helpers.newReturn(null, 204, null);
