@@ -1,5 +1,5 @@
 const express = require('express');
-const Middleware = require('../middlewares/index');
+const Middleware = require('../middlewares/store.manager.middleware');
 const Controller = require('../controllers/store.manager.controller');
 
 const router = express.Router();
