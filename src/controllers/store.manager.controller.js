@@ -62,7 +62,7 @@ const Controllers = {
     const arrayBody = req.body;
 
     const { type, statusCode, message } = await Service.insertSales(arrayBody);
-    if (type === 'ERROR') {
+    if (type) {
       return res.status(statusCode).json({ message });
     }
     return res.status(statusCode).json(message);
@@ -85,7 +85,7 @@ const Controllers = {
   deleteSaleById: async (req, res) => {
     const { id } = req.params;
     const { type, statusCode, message } = await Service.deleteSaleById(+id);
-    if (type === 'ERROR') {
+    if (type) {
       return res.status(statusCode).json({ message });
     }
     return res.status(statusCode).send();
