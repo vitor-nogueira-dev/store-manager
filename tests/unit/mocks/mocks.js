@@ -15,12 +15,12 @@ const storeManagerById = {
 };
 
 const insertProduct = {
-  name: 'Macbook Pro',
+  name: "Macbook Pro",
 };
 
 const insertedProduct = {
   id: 1,
-  name: 'Macbook Pro',
+  name: "Macbook Pro",
 };
 
 const updateProduct = {
@@ -30,13 +30,10 @@ const updateProduct = {
 
 const insertSales = { insertIdSale: 5, produtId: 1, quantity: 2 };
 
-const arraySales = [
-  { productId: 1 },
-  { quantity: 0 },
-];
+const arraySales = [{ productId: 1 }, { quantity: 0 }];
 const arraySalesAll = [
-  { productId: 1, quantity: 2  },
-  { quantity: 0,  productId: 2 },
+  { productId: 1, quantity: 2 },
+  { quantity: 0, productId: 2 },
 ];
 
 const insertedSale = {
@@ -63,6 +60,13 @@ const saleById = {
   quantity: 2,
 };
 
+const saleId = 1;
+
+const arrayBody = [
+  { productId: 2, quantity: 3 },
+  { productId: 4, quantity: 2 },
+];
+
 module.exports = {
   storeManager,
   storeManagerById,
@@ -75,4 +79,6 @@ module.exports = {
   saleById,
   updateProduct,
   arraySalesAll,
+  saleId,
+  arrayBody,
 };
