@@ -1,17 +1,17 @@
 const storeManager = [
   {
     id: 1,
-    name: "Fulano de Tal",
+    name: "Ipad Pro",
   },
   {
     id: 2,
-    name: "Ciclano da Silva",
+    name: "Iphone 13",
   },
 ];
 
 const storeManagerById = {
   id: 1,
-  name: "Fulano de Tal",
+  name: "Iphone 13 pro",
 };
 
 const insertProduct = {
@@ -25,7 +25,7 @@ const insertedProduct = {
 
 const updateProduct = {
   id: 1,
-  name: "AirPod Pro",
+  name: "Macbook Pro",
 };
 
 const insertSales = { insertIdSale: 5, produtId: 1, quantity: 2 };
@@ -33,9 +33,22 @@ const insertSales = { insertIdSale: 5, produtId: 1, quantity: 2 };
 const arraySales = [{ productId: 1 }, { quantity: 0 }];
 const arraySalesAll = [
   { productId: 1, quantity: 2 },
-  { quantity: 0, productId: 2 },
+  { quantity: 1, productId: 2 },
 ];
 
+const resultInsertSale = {
+  id: { insertId: 1 },
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+    {
+      productId: 2,
+      quantity: 5,
+    },
+  ],
+};
 const insertedSale = {
   id: 1,
   itemsSold: arraySales,
@@ -67,6 +80,27 @@ const arrayBody = [
   { productId: 4, quantity: 2 },
 ];
 
+const arrayProductAll = [
+  { id: 1, name: "Martelo de Thor" },
+  { id: 2, name: "Traje de encolhimento" },
+  { id: 3, name: "Escudo do Capitão América" },
+];
+
+const searchName = [{ id: 1, name: "Martelo de Thor" }];
+
+const updateSale = {
+  saleId: 1,
+  itemsUpdated: [
+    {
+      productId: 1,
+      quantity: 10,
+    },
+    {
+      productId: 2,
+      quantity: 50,
+    },
+  ],
+};
 module.exports = {
   storeManager,
   storeManagerById,
@@ -81,4 +115,8 @@ module.exports = {
   arraySalesAll,
   saleId,
   arrayBody,
+  searchName,
+  resultInsertSale,
+  arrayProductAll,
+  updateSale,
 };
