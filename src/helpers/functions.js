@@ -15,6 +15,8 @@ const Helpers = {
       itemsSold: arrayBody,
     };
   },
+
+  newReturn: (type, statusCode, message) => ({ type, statusCode, message }),
 };
 
 module.exports = Helpers;
