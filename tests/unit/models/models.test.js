@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 const connection = require("../../../src/db/connection");
 const Mock = require("../mocks/mocks");
-const Models = require("../../../src/models");
+const Models = require("../../../src/models/store.manager.models");
 
 describe("Testando camada Model", function () {
   afterEach(function () {
@@ -92,6 +92,7 @@ describe("Testando camada Model", function () {
       // act
       const { insertIdSale, produtId, quantity } = Mock.insertSales;
       const insertId = await Models.insertDateSales();
+      
       const result = await Models.insertProductsSales(
         insertIdSale,
         produtId,
@@ -121,6 +122,18 @@ describe("Testando camada Model", function () {
 
       // assert
       expect(result).to.deep.equal(1);
+    });
+    it("Testando se PUT /sales edita uma venda com 2 produtos corretamente", async function () {
+      // Arrange
+    
+      const stubExecute = sinon.stub();
+      stubExecute.resolves([{ affectedRows: 2 }]);
+
+      // Act
+      const result = await Models.updateSaleById(Mock.saleId, Mock.arrayBody);
+
+      // Assert
+      expect(result).to.be.equal(2);
     });
   });
 });

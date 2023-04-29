@@ -2,8 +2,8 @@ const { expect } = require("chai");
 const sinon = require("sinon");
 
 const Mock = require("../mocks/mocks");
-const Services = require("../../../src/services");
-const Models = require("../../../src/models");
+const Services = require("../../../src/services/store.manager.services");
+const Models = require("../../../src/models/store.manager.models");
 
 describe("Testando camada Service", function () {
   describe("Testando camada Service /products", function () {
@@ -48,14 +48,19 @@ describe("Testando camada Service", function () {
     });
     it("Testando se POST /products insere um produto corretamente", async function () {
       // arrange
-      sinon.stub(Models, "insertProduct").resolves([{ insertId: 1 }]);
+      sinon.stub(Models, "insertProduct").resolves({ insertId: 1 });
       // act
       const result = await Services.insertProduct(Mock.insertProduct.name);
       // assert
       expect(result.type).to.be.equal("SUCCESS");
       expect(result.statusCode).to.be.equal(201);
-      // expect(result.message).to.equal(insertedProduct);
+      // expect(result.message).to.equal(Mock.insertedProduct);
+      expect(result.message).to.deep.equal({
+        id: { insertId: 1 },
+        name: "Macbook Pro",
+      });
     });
+
     it("Testando se PUT /products edita um produto corretamente", async function () {
       // arrange
       sinon.stub(Models, "updateProductById").resolves([{ affectedRows: 1 }]);
