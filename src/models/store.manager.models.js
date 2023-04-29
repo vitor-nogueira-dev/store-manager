@@ -62,7 +62,6 @@ const Models = {
   },
 
   updateSaleById: async (saleId, arrayBody) => {
-    console.log(arrayBody, 'models');
     const cases = arrayBody
       && arrayBody
         .map(({ productId, quantity }) => `WHEN ${productId} THEN ${quantity}`)
