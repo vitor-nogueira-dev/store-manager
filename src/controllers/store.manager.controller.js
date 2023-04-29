@@ -1,128 +1,101 @@
-const Service = require('../services');
+const Service = require('../services/store.manager.services');
 
-const getAllProducts = async (_req, res) => {
-  const { type, statusCode, message } = await Service.getAllProducts();
-  if (type === 'ERROR') {
+const Controllers = {
+  getAllProducts: async (_req, res) => {
+    const { statusCode, message } = await Service.getAllProducts();
     return res.status(statusCode).json(message);
-  }
-  return res.status(statusCode).json(message);
+  },
+
+  getById: async (req, res) => {
+    const { id } = req.params;
+    const { type, statusCode, message } = await Service.getProductById(+id);
+    if (type) {
+      return res.status(statusCode).json({ message });
+    }
+
+    return res.status(statusCode).json(message);
+  },
+
+  insertProductController: async (req, res) => {
+    const { name } = req.body;
+    const { statusCode, message } = await Service.insertProduct(name);
+    return res.status(statusCode).json(message);
+  },
+
+  updateProductById: async (req, res) => {
+    const { id } = req.params;
+    const { name } = req.body;
+    const { type, statusCode, message } = await Service.updateProductById(
+      +id,
+      name,
+    );
+    if (type) {
+      return res.status(statusCode).json({ message });
+    }
+    return res.status(statusCode).json(message);
+  },
+
+  deleteProductById: async (req, res) => {
+    const { id } = req.params;
+    const { type, statusCode, message } = await Service.deleteProductById(+id);
+    if (type) {
+      return res.status(statusCode).json({ message });
+    }
+    return res.status(statusCode).send();
+  },
+
+  getAllSales: async (_req, res) => {
+    const { statusCode, message } = await Service.getAllSales();
+    return res.status(statusCode).json(message);
+  },
+
+  getSaleById: async (req, res) => {
+    const { id } = req.params;
+    const { type, statusCode, message } = await Service.getSaleById(+id);
+    if (type) {
+      return res.status(statusCode).json({ message });
+    }
+    return res.status(statusCode).json(message);
+  },
+
+  insertSalesController: async (req, res) => {
+    const arrayBody = req.body;
+
+    const { type, statusCode, message } = await Service.insertSales(arrayBody);
+    if (type === 'ERROR') {
+      return res.status(statusCode).json({ message });
+    }
+    return res.status(statusCode).json(message);
+  },
+
+  updateSaleById: async (req, res) => {
+    const { id } = req.params;
+    const arrayBody = req.body;
+    const {
+      type,
+      statusCode,
+      message,
+    } = await Service.updateSaleById(+id, arrayBody);
+    if (type) {
+      return res.status(statusCode).json({ message });
+    }
+    return res.status(statusCode).json(message);
+  },
+
+  deleteSaleById: async (req, res) => {
+    const { id } = req.params;
+    const { type, statusCode, message } = await Service.deleteSaleById(+id);
+    if (type === 'ERROR') {
+      return res.status(statusCode).json({ message });
+    }
+    return res.status(statusCode).send();
+  },
+
+  searchByQuery: async (req, res) => {
+    const { q } = req.query;
+    const { statusCode, message } = await Service.searchByQuery(q);
+    return res.status(statusCode).json(message);
+  },
 };
 
-const getById = async (req, res) => {
-  const { id } = req.params;
-  const { type, statusCode, message } = await Service.getProductById(+id);
-  console.log(message, 'to aqui message');
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: 'Product not found' });
-  }
-
-  return res.status(statusCode).json(message);
-};
-
-const insertProductController = async (req, res) => {
-  const { name } = req.body;
-  const { type, statusCode, message } = await Service.insertProduct(name);
-  console.log(type, 'type', message, 'message');
-  if (type === 'ERROR') {
-    return res
-      .status(statusCode)
-      .json('"name" length must be at least 5 characters long');
-  }
-  return res.status(statusCode).json(message);
-};
-
-const updateProductById = async (req, res) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const { type, statusCode, message } = await Service.updateProductById(
-    +id,
-    name,
-  );
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: 'Product not found' });
-  }
-  return res.status(statusCode).json(message);
-};
-
-const deleteProductById = async (req, res) => {
-  const { id } = req.params;
-  const { type, statusCode } = await Service.deleteProductById(+id);
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: 'Product not found' });
-  }
-  return res.status(statusCode).send();
-};
-
-const getAllSales = async (_req, res) => {
-  const { type, statusCode, message } = await Service.getAllSales();
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: 'Sale not found' });
-  }
-  return res.status(statusCode).json(message);
-};
-
-const getSaleById = async (req, res) => {
-  const { id } = req.params;
-  const { type, statusCode, message } = await Service.getSaleById(+id);
-  console.log(message.length, 'to aqui message');
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: 'Sale not found' });
-  }
-  return res.status(statusCode).json(message);
-};
-
-const insertSalesController = async (req, res) => {
-  const arrayBody = req.body;
-  console.log(arrayBody, 'aqui');
-
-  const { type, statusCode, message } = await Service.insertSales(arrayBody);
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: 'Product not found' });
-  }
-  return res.status(statusCode).json(message);
-};
-
-const updateSaleById = async (req, res) => {
-  const { id } = req.params;
-  const arrayBody = req.body;
-  const { type, statusCode, message: value } = await Service.updateSaleById(
-    +id,
-    arrayBody,
-  );
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: value });
-  }
-  return res.status(statusCode).json(value);
-};
-
-const deleteSaleById = async (req, res) => {
-  const { id } = req.params;
-  const { type, statusCode } = await Service.deleteSaleById(+id);
-  if (type === 'ERROR') { 
-    return res.status(statusCode).json({ message: 'Sale not found' });
-  }
-  return res.status(statusCode).send();
-};
-
-const searchByQuery = async (req, res) => {
-  const { q } = req.query;
-  const { type, statusCode, message: value } = await Service.searchByQuery(q);
-  if (type === 'ERROR') {
-    return res.status(statusCode).json({ message: value });
-  }
-  return res.status(statusCode).json(value);
-};
-
-module.exports = {
-  getAllProducts,
-  getById,
-  insertProductController,
-  insertSalesController,
-  getAllSales,
-  getSaleById,
-  updateProductById,
-  deleteProductById,
-  deleteSaleById,
-  updateSaleById,
-  searchByQuery,
-};
+module.exports = Controllers;
