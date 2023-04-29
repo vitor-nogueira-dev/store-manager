@@ -1,9 +1,7 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-const Mock = require("../mocks/mocks");
-
-const Middleware = require("../../../src/middlewares");
+const Middleware = require("../../../src/middlewares/store.manager.middleware");
 
 describe("Testando Middlewares camada de Middlewares", () => {
   describe("Testando Middlewares GET /products", () => {
