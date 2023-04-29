@@ -133,7 +133,7 @@ describe("Testando camada Controller Store Manager", function () {
 
       // Assert
       expect(res.status).to.have.been.calledWith(200);
-      expect(res.json).to.have.been.calledWith(Mock.updateProduct);
+      expect(res.json).to.have.been.calledWith({ message: Mock.updateProduct });
     });
     it("Testando se DELETE /products deleta um produto corretamente", async function () {
       // arrange
@@ -221,7 +221,7 @@ describe("Testando camada Controller Store Manager", function () {
 
       // Assert
       expect(res.status).to.have.been.calledWith(200);
-      expect(res.json).to.have.been.calledWith(Mock.saleById);
+      expect(res.json).to.have.been.calledWith({ message: Mock.saleById });
       expect(res.json).to.have.been.calledOnce;
     });
     it("Testando se DELETE /sales deleta uma venda corretamente", async function () {
