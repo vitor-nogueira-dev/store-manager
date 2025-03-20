@@ -7,8 +7,6 @@ WORKDIR /app
 COPY --chown=node:node package*.json ./
 RUN npm install
 
-COPY --chown=node:node __tests__ __tests__
-COPY --chown=node:node .trybe .trybe
 COPY --chown=node:node src src
 COPY --chown=node:node .editorconfig .
 COPY --chown=node:node .eslintignore .
