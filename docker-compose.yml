@@ -15,7 +15,7 @@ services:
     # Mesmo que `docker run -i`
     stdin_open: true
     # Substitui o comando padrão da imagem do node
-    command: bash # você pode subistituir `bash` por `npm run dev` para iniciar a API quando container for iniciado  
+    command: npm run start # você pode subistituir `bash` por `npm run dev` para iniciar a API quando container for iniciado  
     # Restarta a imagem caso algo a faça parar
     restart: always
     # Diretório padrão de execução
